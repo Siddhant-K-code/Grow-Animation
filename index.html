@@ -1,0 +1,62 @@
+<style>
+  css-doodle {
+    --color: @p(#51eaea, #fffde1, #ff9d76, #FB3569);
+    --rule: (
+      :doodle {
+        @grid: 1x1x600 / 2vmin;
+        --line-color: var(--color);
+        --deg-a: @p(60deg, 30deg);
+        --deg-b: @p(-60deg, -120deg);
+      }
+
+      @size: 100% 1px;
+      position: absolute; left: 100%;
+
+      transform-origin: 0 50%;
+      transform: rotate(@p(
+        @var(--deg-a), @var(--deg-b)
+      ));
+
+      animation: r 0ms calc(15ms * @z()) linear;
+      animation-fill-mode: both;
+
+      :after {
+        content: '.';
+        font-size: inherit;
+        color: var(--color);
+        opacity: @r(.9);
+      }
+
+      @keyframes r {
+        0%, 99% {
+          background: transparent;
+          font-size: 0;
+        }
+        100% {
+          background: @var(--line-color);
+          font-size: @r(.1vmin, 7vmin);
+        }
+      }
+    );
+  }
+</style>
+<css-doodle use="var(--rule)" id="doodle"></css-doodle>
+<style>
+  html, body { 
+  height: 100%; 
+  margin: 0; 
+  overflow: hidden 
+}
+body { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: #010214; 
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.7.1/css-doodle.min.js"></script>
+
+<script>
+document.addEventListener('click', e => doodle.update());
+</script>
